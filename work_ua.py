@@ -6,14 +6,13 @@ from multiprocessing import Pool
 BASIC_URL = 'https://www.work.ua'
 UA = UserAgent()
 
-
 def get_html(url, headers=None):
     resp = requests.get(url, headers=headers)
     return resp.text
 
 
 def random_sleep():
-    time.sleep(random.randint(1, 3))
+    time.sleep(random.uniform(2, 5))
 
 
 def get_total_pages(html):
@@ -122,10 +121,10 @@ def main():
             html = get_html(url_gen)
             all_posts = get_all_posts(html)
             print(url_gen)
-            random_sleep()
             with Pool(14) as p:
                 p.map(data_pool, all_posts)
                 random_sleep()
+                
 
 
 if __name__ == '__main__':
